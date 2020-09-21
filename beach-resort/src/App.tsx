@@ -9,8 +9,6 @@ import Home from './pages/Home';
 import Rooms from './pages/Rooms';
 import SingleRoom from './pages/SingleRoom';
 import Error from './pages/Error';
-
-// Component
 import Navbar from './components/Navbar';
 
 const App = () => {
