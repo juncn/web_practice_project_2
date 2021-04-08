@@ -4,7 +4,7 @@ import Loading from './Loading';
 import Title from './Title';
 import Room from './RoomCard';
 
-type RoomType = {
+interface RoomType {
   breakfast: boolean;
   capacity: number;
   description: string;

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import defaultBcg from '../assets/images/room-1.jpeg';
 
-type Props = {
+interface Props {
   img: string;
 };
 

@@ -1,8 +1,7 @@
 import React from 'react';
 import { Room } from '../types';
 
-
-type Props = {
+interface Props {
   rooms?: Room[]
 }
 

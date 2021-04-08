@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 
-type Props = {
+interface Props {
   children: ReactNode;
   title?: string;
   subtitle?: string;
