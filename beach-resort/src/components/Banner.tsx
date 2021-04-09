@@ -1,12 +1,11 @@
-import React, { ReactNode } from 'react';
+import React, { FunctionComponent } from 'react';
 
 interface Props {
-  children: ReactNode;
   title?: string;
   subtitle?: string;
 };
 
-const Banner = ({ children, title, subtitle }: Props) => {
+const Banner: FunctionComponent<Props> = ({ title, subtitle, children }) => {
   return (
     <div className="banner">
       <h1>{title}</h1>

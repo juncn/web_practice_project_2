@@ -1,11 +1,10 @@
-import React, { ReactNode } from 'react';
+import React, { FunctionComponent } from 'react';
 
 interface Props {
-  children: ReactNode;
   hero?: string;
 };
 
-const Hero = ({ children, hero = 'defaultHero' }: Props) => {
+const Hero: FunctionComponent<Props> = ({ children, hero = 'defaultHero' }) => {
   return <header className={hero}>{children}</header>;
 };
 
