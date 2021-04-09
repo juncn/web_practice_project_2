@@ -103,7 +103,6 @@ class RoomProvider extends Component {
     price = parseInt(price.toString());
     minSize = parseInt(minSize.toString());
     maxSize = parseInt(maxSize.toString());
-    console.log(breakfast);
 
     // Filter by type
     if (type !== 'all') {
