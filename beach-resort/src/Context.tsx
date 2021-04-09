@@ -1,21 +1,7 @@
 import React, { Component } from 'react';
 import items from './assets/data';
+import { Room } from './types';
 
-type Room = {
-  breakfast: boolean;
-  capacity: number;
-  description: string;
-  extras: [];
-  featured: boolean;
-  id: string;
-  images: [];
-  name: string;
-  pets: boolean;
-  price: number;
-  size: number;
-  slug: string;
-  type: string;
-};
 
 type ContextProps = {
   rooms: Room[];

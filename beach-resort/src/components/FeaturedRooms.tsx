@@ -2,31 +2,16 @@ import React, { Component } from 'react';
 import { RoomContext } from '../Context';
 import Loading from './Loading';
 import Title from './Title';
-import Room from './RoomCard';
-
-interface RoomType {
-  breakfast: boolean;
-  capacity: number;
-  description: string;
-  extras: [];
-  featured: boolean;
-  id: string;
-  images: [];
-  name: string;
-  pets: boolean;
-  price: number;
-  size: number;
-  slug: string;
-  type: string;
-};
+import Roomcard from './RoomCard';
+import { Room } from '../types';
 
 class FeaturedRooms extends Component {
   static contextType = RoomContext;
 
   render() {
     const { featuredRooms, loading } = this.context;
-    const rooms = featuredRooms.map((room: RoomType) => {
-      return <Room key={room.id} room={room} />;
+    const rooms = featuredRooms.map((room: Room) => {
+      return <Roomcard key={room.id} room={room} />;
     });
 
     return (

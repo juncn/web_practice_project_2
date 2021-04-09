@@ -1,22 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import defaultImg from '../assets/images/room-1.jpeg';
-
-interface Room {
-  breakfast: boolean;
-  capacity: number;
-  description: string;
-  extras: string[];
-  featured: boolean;
-  id: string;
-  images: string[];
-  name: string;
-  pets: boolean;
-  price: number;
-  size: number;
-  slug: string;
-  type: string;
-};
+import { Room } from '../types';
 
 interface Props {
   room: Room;
