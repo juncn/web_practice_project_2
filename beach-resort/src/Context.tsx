@@ -22,7 +22,17 @@ type ContextProps = {
   sortedRooms: Room[];
   featuredRooms: Room[];
   loading: boolean;
+  type: string;
+  capacity: number;
+  price: number;
+  minPrice: number;
+  maxPrice: number;
+  minSize: number;
+  maxSize: number;
+  breakfast: boolean;
+  pets: boolean;
   getRoom: (slug: string) => Room | undefined;
+  handleChange: (event: any) => void;
 };
 
 const RoomContext = React.createContext<Partial<ContextProps>>({});
@@ -33,16 +43,30 @@ class RoomProvider extends Component {
     sortedRooms: [],
     featuredRooms: [],
     loading: true,
+    type: 'all',
+    capacity: 1,
+    price: 0,
+    minPrice: 0,
+    maxPrice: 0,
+    minSize: 0,
+    maxSize: 0,
+    breakfast: false,
+    pets: false
   };
 
   componentDidMount() {
     let rooms = this.formatData(items);
     let featuredRooms = rooms.filter((room: Room) => room.featured === true);
+    let maxPrice = Math.max(...rooms.map(item => item.price));
+    let maxSize = Math.max(...rooms.map(item => item.size));
     this.setState({
       rooms,
       featuredRooms,
       sortedRooms: rooms,
       loading: false,
+      price: maxPrice,
+      maxPrice,
+      maxSize
     });
   }
 
@@ -62,9 +86,60 @@ class RoomProvider extends Component {
     return room;
   };
 
+  // TODO: fix type
+  handleChange = (event: any) => {
+    const target = event.target;
+    const value: string | boolean = target.type === 'checkbox' ? target.checked : target.value;
+    const name = event.target.name;
+    this.setState({
+      [name]: value
+    }, this.filterRooms);
+  }
+
+  filterRooms = () => {
+    let { rooms, type, capacity, price, minSize, maxSize, breakfast, pets} = this.state;
+    let filteredRooms: Room[] = [...rooms];
+    capacity = parseInt(capacity.toString());
+    price = parseInt(price.toString());
+    minSize = parseInt(minSize.toString());
+    maxSize = parseInt(maxSize.toString());
+    console.log(breakfast);
+
+    // Filter by type
+    if (type !== 'all') {
+      filteredRooms = filteredRooms.filter(room => room.type === type);
+    }
+    // Filter by capacity
+    if (capacity !== 1) {
+      filteredRooms = filteredRooms.filter(room => room.capacity >= capacity);
+    }
+    // Filter by price
+    filteredRooms = filteredRooms.filter(room => room.price <= price);
+    // Filter by size
+    filteredRooms = filteredRooms.filter(room => room.size >= minSize && room.size <= maxSize);
+    // Filter by breakfast
+    if (breakfast) {
+      filteredRooms = filteredRooms.filter(room => room.breakfast === true);
+    }
+    // Filter by pets
+    if (pets) {
+      filteredRooms = filteredRooms.filter(room => room.pets === true);
+    }
+    
+    this.setState({
+      sortedRooms: filteredRooms
+    });
+  }
+
   render() {
     return (
-      <RoomContext.Provider value={{ ...this.state, getRoom: this.getRoom }}>
+      <RoomContext.Provider 
+        value={{
+          ...this.state, 
+          getRoom: this.getRoom,
+          handleChange: this.handleChange
+        }}
+      >
         {this.props.children}
       </RoomContext.Provider>
     );
